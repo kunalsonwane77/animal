@@ -1,23 +1,41 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
+import Cards from './Cards';
+import Navbar from './Navbar';
 
 function App() {
+
+
+  let [data,setdata]=useState([])
+
+  async function myapi(){
+    let data = await fetch("https://www.freetestapi.com/api/v1/animals")
+
+    let actualdata = await data.json()
+
+    console.log(actualdata)
+    setdata(actualdata)
+}
+
+
+useEffect(()=>{
+  myapi()
+},[])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar setdata={setdata}/>
+      <div className="cardscontainer">
+      {data.map(({description,image,habitat,name,place_of_found,species,id})=>{
+        return <Cards description={description} key={id} img={image} habitat={habitat} name={name} place_of_found={place_of_found} species={species}/>
+      })}
+
+   </div>
+
+      
+          
     </div>
   );
 }
