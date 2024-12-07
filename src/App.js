@@ -7,35 +7,35 @@ import Navbar from './Navbar';
 function App() {
 
 
-  let [data,setdata]=useState([])
+  let [data, setdata] = useState([])
 
-  async function myapi(){
+  async function myapi() {
     let data = await fetch("https://www.freetestapi.com/api/v1/animals")
 
     let actualdata = await data.json()
 
     console.log(actualdata)
     setdata(actualdata)
-}
+  }
 
 
-useEffect(()=>{
-  myapi()
-},[])
+  useEffect(() => {
+    myapi()
+  }, [])
 
 
   return (
     <div className="App">
-      <Navbar setdata={setdata}/>
+      <Navbar setdata={setdata} />
       <div className="cardscontainer">
-      {data.map(({description,image,habitat,name,place_of_found,species,id})=>{
-        return <Cards description={description} key={id} img={image} habitat={habitat} name={name} place_of_found={place_of_found} species={species}/>
-      })}
+        {data.map(({ description, image, name, place_of_found, species, id, origin, temperament, birth_year, nationality ,biography }) => {
+          return <Cards description={description} key={id} img={image} name={name} place_of_found={place_of_found} species={species} origin={origin} temperament={temperament} birth_year={birth_year} nationality={nationality} biography={biography} />
+        })}
 
-   </div>
+      </div>
 
-      
-          
+
+
     </div>
   );
 }

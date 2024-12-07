@@ -1,14 +1,14 @@
 import React from 'react'
 
-function Cards({description,img,habitat,name,place_of_found,species}) {
+function Cards({description,img,name,place_of_found,species,origin,temperament,birth_year,nationality,biography}) {
   return (
     <div className='card'>
         <img src={img} alt="" />
         <h1>{name}</h1>
-        <p>{description}</p>
-        <p>habitat : {habitat}</p>
-        <p>place_of_found : {place_of_found}</p>
-        <h3>{species}</h3>
+        <p>{description||biography}</p>
+        {birth_year?<p>Birth_year : {birth_year}</p>:null}
+        <p>place : {place_of_found||origin||nationality}</p>
+        <h3>{species?species:temperament}</h3>
         
     </div>
   )
